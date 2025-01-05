@@ -12,6 +12,7 @@ clock = pygame.time.Clock()
 # 색상 설정
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
+BLUE = (0, 0, 255)
 
 ball_radius = 30
 ball_x = random.randint(ball_radius, WIDTH - ball_radius)
@@ -19,13 +20,23 @@ ball_y = random.randint(ball_radius, HEIGHT - ball_radius)
 
 ball_speed_x = 3
 ball_speed_y = 3
+score = 0
 
+font = pygame.font.Font(None, 36)
 # 게임 루프
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # 창 닫기 이벤트
             running = False
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = event.pos
+            distance = ((mouse_x - ball_x) ** 2 + (mouse_y - ball_y) ** 2) ** 0.5
+            if distance < ball_radius:
+                score += 1
+                ball_x = random.randint(ball_radius, WIDTH - ball_radius)
+                ball_y = random.randint(ball_radius, HEIGHT - ball_radius)
 
     screen.fill(WHITE)  # 배경 색상을 흰색으로 설정
 
@@ -38,6 +49,9 @@ while running:
         ball_speed_y = -ball_speed_y
 
     pygame.draw.circle(screen, RED, (ball_x, ball_y), ball_radius)
+
+    score_text = font.render(f"Score: {score}", True, BLUE)
+    screen.blit(score_text, (10, 10))
 
     pygame.display.flip()  # 화면 업데이트
     clock.tick(60)# 초당 프임 수
