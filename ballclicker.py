@@ -21,6 +21,8 @@ ball_y = random.randint(ball_radius, HEIGHT - ball_radius)
 ball_speed_x = 3
 ball_speed_y = 3
 score = 0
+time_limit = 30
+start_ticks = pygame.time.get_ticks()
 
 font = pygame.font.Font(None, 36)
 # 게임 루프
@@ -37,8 +39,11 @@ while running:
                 score += 1
                 ball_x = random.randint(ball_radius, WIDTH - ball_radius)
                 ball_y = random.randint(ball_radius, HEIGHT - ball_radius)
-                ball_speed_x = random.choice([2, 4]) * 0.5
-                ball_speed_y += random.choice([2, 4])
+                ball_speed_x = random.choice([2, 6]) * 0.5
+                ball_speed_y += random.choice([2, 6])
+    elapsed_time = (pygame.time.get_ticks() - start_ticks) / 1000
+    if elapsed_time > time_limit:
+        running = False
 
     screen.fill(WHITE)  # 배경 색상을 흰색으로 설정
 
@@ -54,6 +59,9 @@ while running:
 
     score_text = font.render(f"Score: {score}", True, BLUE)
     screen.blit(score_text, (10, 10))
+
+    time_text = font.render(f"Time: {max(0, int(time_limit - elapsed_time))}", True, BLUE)
+    screen.blit(time_text, (WIDTH - 150, 10))
 
     pygame.display.flip()  # 화면 업데이트
     clock.tick(60)# 초당 프임 수
