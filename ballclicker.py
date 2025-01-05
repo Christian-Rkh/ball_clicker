@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 # 초기 설정
 pygame.init()
@@ -9,6 +10,11 @@ pygame.display.set_caption("공 잡기 게임")
 
 # 색상 설정
 WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+
+ball_radius = 30
+ball_x = random.randint(ball_radius, WIDTH - ball_radius)
+ball_y = random.randint(ball_radius, HEIGHT - ball_radius)
 
 # 게임 루프
 running = True
@@ -18,6 +24,9 @@ while running:
             running = False
 
     screen.fill(WHITE)  # 배경 색상을 흰색으로 설정
+
+    pygame.draw.circle(screen, RED, (ball_x, ball_y), ball_radius)
+
     pygame.display.flip()  # 화면 업데이트
 
 pygame.quit()
