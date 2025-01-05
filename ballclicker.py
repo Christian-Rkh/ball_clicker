@@ -37,6 +37,8 @@ while running:
                 score += 1
                 ball_x = random.randint(ball_radius, WIDTH - ball_radius)
                 ball_y = random.randint(ball_radius, HEIGHT - ball_radius)
+                ball_speed_x = random.choice([2, 4]) * 0.5
+                ball_speed_y += random.choice([2, 4])
 
     screen.fill(WHITE)  # 배경 색상을 흰색으로 설정
 
