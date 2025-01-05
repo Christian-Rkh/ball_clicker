@@ -65,6 +65,23 @@ while running:
 
     pygame.display.flip()  # 화면 업데이트
     clock.tick(60)# 초당 프임 수
+game_over = True
+while game_over:
+    screen.fill(WHITE)  # 화면을 흰색으로 초기화
+    font = pygame.font.Font(None, 72)
+    game_over_text = font.render("Game Over!", True, (0, 0, 0))
+    final_score_text = font.render(f"Your Score: {score}", True, (0, 0, 0))
+    screen.blit(game_over_text, (WIDTH // 2 - 150, HEIGHT // 2 - 50))
+    screen.blit(final_score_text, (WIDTH // 2 - 200, HEIGHT // 2 + 20))
+
+    pygame.display.flip()  # 화면 업데이트
+
+    for event in pygame.event.get():  # 종료 화면에서 이벤트 처리
+        if event.type == pygame.QUIT:  # 창 닫기 버튼 클릭 시
+            game_over = False
+
+pygame.quit()  # pygame 종료
+sys.exit()  # 시스템 종료
 
 pygame.quit()
 sys.exit()
